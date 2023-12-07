@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Skills() {
+function Skills(props) {
   const [skillList, setSkillList] = useState([""]);
 
   const handleAdd = () => {
@@ -19,6 +19,10 @@ function Skills() {
     list.splice(index, 1);
     setSkillList(list);
   };
+
+  useEffect(() => {
+    props?.fetchSkills(skillList);
+  }, [skillList]);
 
   return (
     <section class="skills">

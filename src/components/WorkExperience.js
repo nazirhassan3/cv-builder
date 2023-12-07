@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function WorkExperience() {
+function WorkExperience(props) {
   const [workExpList, setWorkExpList] = useState([
     { jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" },
   ]);
@@ -24,6 +24,10 @@ function WorkExperience() {
     list.splice(index, 1);
     setWorkExpList(list);
   };
+
+  useEffect(() => {
+    props?.fetchWorkExperience(workExpList);
+  }, [workExpList]);
 
   return (
     <section class="work-experience">

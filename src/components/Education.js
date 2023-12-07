@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Education() {
+function Education(props) {
   const [educationList, setEducationList] = useState([
     { education: "", school: "", startDate: "", endDate: "" },
   ]);
@@ -24,6 +24,11 @@ function Education() {
     list.splice(index, 1);
     setEducationList(list);
   };
+
+  useEffect(() => {
+    props?.fetchEducation(educationList);
+  }, [educationList]);
+
   return (
     <section class="education">
       <div class="education__header">
