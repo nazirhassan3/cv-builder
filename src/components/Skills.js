@@ -25,42 +25,40 @@ function Skills() {
       <div class="skills__header">
         <h1>Skills</h1>
       </div>
-      <form>
-        {skillList.map((x, i) => {
-          return (
-            <div key={i}>
-              <div class="skill">
-                <label for="skill" class="form-label">
-                  Skill
-                </label>
-                <input
-                  class="form-control"
-                  id="skill"
-                  value={x}
-                  name="skill"
-                  onChange={(e) => handleChange(e, i)}
-                />
-              </div>
-              {skillList.length - 1 === i && (
-                <input
-                  type="button"
-                  class="btn btn-primary"
-                  value="Add"
-                  onClick={handleAdd}
-                />
-              )}
-              {skillList.length !== 1 && (
-                <input
-                  type="button"
-                  class="btn btn-primary"
-                  value="Remove"
-                  onClick={(e) => handleRemove(e, i)}
-                />
-              )}
+      {skillList.map((x, i) => {
+        return (
+          <div key={i}>
+            <div class="skill">
+              <label for="skill" class="form-label">
+                Skill
+              </label>
+              <input
+                class="form-control"
+                id="skill"
+                value={x}
+                name="skill"
+                onChange={(e) => handleChange(e, i)}
+              />
             </div>
-          );
-        })}
-      </form>
+            {skillList.length - 1 === i && (
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Add"
+                onClick={handleAdd}
+              />
+            )}
+            {skillList.length !== 1 && (
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Remove"
+                onClick={(e) => handleRemove(e, i)}
+              />
+            )}
+          </div>
+        );
+      })}
       <pre>{JSON.stringify(skillList)}</pre>
     </section>
   );
