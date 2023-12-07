@@ -11,7 +11,7 @@
   color: #fff;
   height: 100vh;
   width: 100vw;
-  background-color: #1d2a35;
+  background-color: rgb(7, 23, 29);
 }
 
 /* KEY FRAMES */
@@ -52,6 +52,8 @@
   border: 5px outset rgb(30, 79, 92);
   flex-direction: column;
   padding: 5px;
+  margin: 5px 500px;
+  background-color: rgb(19, 66, 86);
 }
 
 .personal-detail,
@@ -74,4 +76,8 @@
   padding: 5px;
   margin: 15px 5px;
   border-bottom: 1px solid rgba(141, 168, 173, 0.5);
+}
+
+.form {
+  display: flex;
 }
