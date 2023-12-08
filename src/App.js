@@ -1,17 +1,19 @@
-import "./App.css";
-import logo from "./5988705.png";
+import { Route, Link, Routes } from "react-router-dom";
 
 import Resume from "./components/Resume/Resume";
+import ViewResume from "./pages/ViewResume/ViewResume";
+import Home from "./pages/Home/Home";
+import ViewAllResume from "./pages/ViewAllResume/ViewAllResume";
 
 function App() {
   return (
-    <div className="App">
-      <header class="header">
-        <img src={logo} alt="Logo" class="logo" />
-        <h1 class="header__title">CV Builder</h1>
-      </header>
-      <Resume />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />}>
+        <Route path="/" element={<Resume />} />
+        <Route path="/viewall" element={<ViewAllResume />} />
+      </Route>
+      <Route path="/view/:id" element={<ViewResume />} />
+    </Routes>
   );
 }
 

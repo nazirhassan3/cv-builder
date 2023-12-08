@@ -68,20 +68,6 @@ function Resume() {
     return finalPos;
   }
 
-  async function getResume() {
-    try {
-      let resume_id = 1;
-
-      const response = await axios.get(
-        `http://localhost:8080/api/resumes/${resume_id}`
-      );
-
-      console.info(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async function createResume(e) {
     e.preventDefault();
     console.log("final", getFinalPositions());
@@ -127,8 +113,12 @@ function Resume() {
         requestObject
       );
       console.info(response);
+      if (response?.status === 200) {
+        alert("Resume Successfully Saved!");
+      }
     } catch (error) {
       console.error(error);
+      alert("Resume Saving Failed!");
     }
   }
 
