@@ -24,7 +24,7 @@ function ViewResume(props) {
     }
   }
 
-  useEffect((id) => {
+  useEffect(() => {
     // console.log(id);
 
     if (id > 0) {
