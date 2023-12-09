@@ -5,6 +5,8 @@ import { Draggable } from "react-drag-reorder";
 import { useEffect, useState } from "react";
 import Skills from "../Skills";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
+import { Button } from "react-bootstrap";
 
 function Resume() {
   const [workExperienceList, setWorkExperienceList] = useState([]);
@@ -14,33 +16,19 @@ function Resume() {
 
   const [positions, setPositions] = useState([
     {
-      name: "work",
+      name: "personal",
       pos: 1,
-      element: (
-        <WorkExperience
-          fetchWorkExperience={(experience) =>
-            setWorkExperienceList(experience)
-          }
-        />
-      ),
+      element: <PersonalDetails fetchPersonalDetails={(details) => setPersonalDetails(details)} />,
     },
     {
       name: "education",
       pos: 2,
-      element: (
-        <Education
-          fetchEducation={(education) => setEducationList(education)}
-        />
-      ),
+      element: <Education fetchEducation={(education) => setEducationList(education)} />,
     },
     {
-      name: "personal",
+      name: "work",
       pos: 3,
-      element: (
-        <PersonalDetails
-          fetchPersonalDetails={(details) => setPersonalDetails(details)}
-        />
-      ),
+      element: <WorkExperience fetchWorkExperience={(experience) => setWorkExperienceList(experience)} />,
     },
     {
       name: "skills",
@@ -50,13 +38,13 @@ function Resume() {
   ]);
 
   const getChangedPos = (currentPos, newPos, e) => {
-    console.log(currentPos, newPos, e);
+    // console.log(currentPos, newPos, e);
 
     const newPositions = [...positions];
 
     const item = newPositions.splice(currentPos, 1)[0];
 
-    console.log("test", newPositions.splice(currentPos, 1));
+    // console.log("test", newPositions.splice(currentPos, 1));
     newPositions.splice(newPos, 0, item);
 
     setPositions(newPositions);
@@ -70,7 +58,7 @@ function Resume() {
 
   async function createResume(e) {
     e.preventDefault();
-    console.log("final", getFinalPositions());
+    // console.log("final", getFinalPositions());
 
     // console.log(e);
     // const requestObject = {
@@ -107,11 +95,16 @@ function Resume() {
       skills: skillsList,
       sectionOrder: getFinalPositions(),
     };
+
+    const headers = {
+      "Content-Type": "application/json",
+      "User-Agent": "PostmanRuntime/7.35.0",
+    };
+
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/resumes`,
-        requestObject
-      );
+      const response = await axios.post(`https://cv-builder-api-h8zv.onrender.com/api/resumes`, requestObject, {
+        headers: headers,
+      });
       console.info(response);
       if (response?.status === 200) {
         alert("Resume Successfully Saved!");
@@ -123,16 +116,19 @@ function Resume() {
   }
 
   return (
-    <form onSubmit={createResume}>
+    <Form onSubmit={createResume}>
       <div class="cv-form">
+        <p style={{ fontWeight: 600, fontSize: "22px" }}>🤚 Drag to reorder</p>
         <Draggable onPosChange={getChangedPos}>
           {positions?.map((div) => {
             return div?.element;
           })}
         </Draggable>
-        <button type="submit">Submit</button>
+        <Button style={{ marginTop: "10px" }} type="submit">
+          Submit
+        </Button>
       </div>
-    </form>
+    </Form>
   );
 }
 

@@ -10,7 +10,7 @@ function ViewResume(props) {
 
   async function getResumeById(id) {
     try {
-      const response = await axios.get(`http://localhost:8080/api/resumes/${id}`);
+      const response = await axios.get(`https://cv-builder-api-h8zv.onrender.com/api/resumes/${id}`);
 
       if (response?.status === 200) {
         console.info(response);
@@ -25,90 +25,117 @@ function ViewResume(props) {
   }
 
   useEffect(() => {
-    console.log(id);
+    // console.log(id);
 
     if (id > 0) {
       getResumeById(id);
     }
   }, []);
 
+  const sections = {
+    education: (
+      <div style={{ textAlign: "start" }}>
+        <p className="sub-heading-two">Education</p>
+        {resumeDetails?.education?.length > 0 ? (
+          resumeDetails?.education?.map((education, index) => {
+            return (
+              <div key={index}>
+                <p className="text bold mb-0">
+                  <span className="emphasis">{education?.education} </span> — <i>{education?.school}</i>
+                </p>
+                <p className="text bold">
+                  From {education?.startDate} to {education?.endDate}
+                </p>
+              </div>
+            );
+          })
+        ) : (
+          <p>No education history found</p>
+        )}
+      </div>
+    ),
+    skills: (
+      <div style={{ textAlign: "start" }}>
+        <p className="sub-heading-two">Skills</p>
+        <ul className="list text">
+          {resumeDetails?.skills?.length > 0 ? (
+            resumeDetails?.skills?.map((skill, index) => {
+              return <li key={index}>{skill}</li>;
+            })
+          ) : (
+            <p>No skills found</p>
+          )}
+        </ul>
+      </div>
+    ),
+
+    work: (
+      <div style={{ textAlign: "start" }}>
+        <p className="sub-heading-two">Work Experience</p>
+        {resumeDetails?.workExperience?.length > 0 ? (
+          resumeDetails?.workExperience?.map((experience, index) => {
+            return (
+              <div key={index}>
+                <p className="text bold mb-0">
+                  <span className="emphasis">{experience?.company}</span> —
+                  <i>
+                    {experience?.jobTitle} {experience?.jobRole}
+                  </i>
+                </p>
+                <p className="text bold">
+                  From {experience?.startDate} to {experience?.endDate}
+                </p>
+              </div>
+            );
+          })
+        ) : (
+          <p>No experience found</p>
+        )}
+      </div>
+    ),
+  };
+
   return (
     <>
       <div className="bg-color-main">
         <center>
           <section className="section-max-width">
-            <div className="row header-top-border">
-              <div className="col-md-12">
+            <div className="header-top-border">
+              <div>
                 <h2 className="header-name">{resumeDetails?.name}</h2>
               </div>
-              <div className="col-md-6 header-contact">
-                <p>{resumeDetails?.address}</p>
-                <p>
+              <div className="header-contact">
+                <p style={{ margin: 0, fontSize: "16px" }}>
+                  <b>Job Title:</b> {resumeDetails?.jobTitle}
+                </p>
+                <p style={{ margin: 0, fontSize: "16px" }}>
+                  <b>Address:</b> {resumeDetails?.address}
+                </p>
+                <p style={{ margin: 0, fontSize: "16px" }}>
+                  <b>Phone Number:</b> {resumeDetails?.phone}
+                </p>
+                <p style={{ margin: 0, fontSize: "16px" }}>
+                  <b>Email:</b>
                   <a href={`mailto:${resumeDetails?.email}`}>{resumeDetails?.email}</a>
                 </p>
               </div>
             </div>
-            <div className="row">
-              <div className="col content">
+            <div>
+              <div className="content">
                 <p className="sub-heading-two">Summary</p>
-                <p className="text">${resumeDetails?.summary}</p>
-
-                <p className="sub-heading-two">Skills</p>
-
-                <ul className="list text">
-                  {resumeDetails?.skills?.length > 0 ? (
-                    resumeDetails?.skills?.map((skill) => {
-                      return <li>{skill}</li>;
-                    })
-                  ) : (
-                    <li>No skills found</li>
-                  )}
-                </ul>
-
-                <p className="sub-heading-two">Work Experience</p>
-                {resumeDetails?.workExperience?.length > 0 ? (
-                  resumeDetails?.workExperience?.map((experience) => {
-                    return (
-                      <>
-                        <p className="text bold mb-0">
-                          <span className="emphasis">{experience?.company}</span> —
-                          <i>
-                            {experience?.jobTitle} {experience?.jobRole}
-                          </i>
-                        </p>
-                        <p className="text bold">
-                          {experience?.startDate} - {experience?.endDate}
-                        </p>
-                      </>
-                    );
-                  })
-                ) : (
-                  <li>No experience found</li>
-                )}
-
-                <p className="sub-heading-two">Education</p>
-                {resumeDetails?.education?.length > 0 ? (
-                  resumeDetails?.education?.map((education) => {
-                    return (
-                      <>
-                        <p className="text bold mb-0">
-                          <span className="emphasis">{education?.education} </span> — <i>{education?.school}</i>
-                        </p>
-                        <p className="text bold">
-                          {education?.startDate} - {education?.endDate}
-                        </p>
-                      </>
-                    );
-                  })
-                ) : (
-                  <li>No education history found</li>
-                )}
+                <p className="text">{resumeDetails?.summary}</p>
               </div>
             </div>
-
-            <div className="row pg-container">
-              <div className="col-md-12">
-                <p className="sub-heading-two">Footer Notes</p>
+            <div className="content">
+              {resumeDetails?.sectionOrder?.length > 0
+                ? resumeDetails?.sectionOrder?.map((section, index) => {
+                    return <div key={index}>{sections[section]}</div>;
+                  })
+                : null}
+            </div>
+            <div className="pg-container">
+              <div>
+                <p className="sub-heading-two">CV Generator &copy; {new Date().getFullYear()}</p>
               </div>
             </div>
           </section>

@@ -4,6 +4,7 @@ import Resume from "./components/Resume/Resume";
 import ViewResume from "./pages/ViewResume/ViewResume";
 import Home from "./pages/Home/Home";
 import ViewAllResume from "./pages/ViewAllResume/ViewAllResume";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

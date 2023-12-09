@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function WorkExperience(props) {
-  const [workExpList, setWorkExpList] = useState([
-    { jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" },
-  ]);
+  const [workExpList, setWorkExpList] = useState([{ jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" }]);
 
   const handleAdd = () => {
-    setWorkExpList([
-      ...workExpList,
-      { jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" },
-    ]);
+    setWorkExpList([...workExpList, { jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" }]);
   };
 
   const handleChange = (e, index) => {
@@ -31,89 +27,64 @@ function WorkExperience(props) {
 
   return (
     <section class="work-experience">
-      <div class="work-experience__header">
-        <h1>Work Experience</h1>
-      </div>
-      {workExpList.map((x, i) => {
-        return (
-          <div key={i}>
-            <div class="work-exp">
-              <label for="jobTitle" class="form-label">
-                Job Title
-              </label>
-              <input
-                class="form-control"
-                name="jobTitle"
-                value={x.jobTitle}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="work-exp">
-              <label for="company" class="form-label">
-                Company Name
-              </label>
-              <input
-                class="form-control"
-                name="company"
-                value={x.company}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="work-exp">
-              <label for="startDate" class="form-label">
-                From
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                name="startDate"
-                value={x.startDate}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="work-exp">
-              <label for="endDate" class="form-label">
-                Till
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                name="endDate"
-                value={x.endDate}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="work-exp">
-              <label for="role" class="form-label">
-                Job Role
-              </label>
-              <input
-                class="form-control"
-                name="jobRole"
-                value={x.jobRole}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            {workExpList.length - 1 === i && (
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Add"
-                onClick={handleAdd}
-              />
-            )}
-            {workExpList.length !== 1 && (
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Remove"
-                onClick={(e) => handleRemove(e, i)}
-              />
-            )}
-          </div>
-        );
-      })}
-      <pre>{JSON.stringify(workExpList)}</pre>
+      <Card style={{ margin: "20px 0" }}>
+        <Card.Header>🏢 Work Experience</Card.Header>
+        <Card.Body>
+          {workExpList.map((x, i) => {
+            return (
+              <div key={i}>
+                <Container>
+                  <Row>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Job Title</Form.Label>
+                        <Form.Control name="jobTitle" value={x.jobTitle} onChange={(e) => handleChange(e, i)} type="text" placeholder="Software Developer" />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Company Name</Form.Label>
+                        <Form.Control name="company" value={x.company} onChange={(e) => handleChange(e, i)} type="text" placeholder="XYZ Co." />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Start Date</Form.Label>
+                        <Form.Control name="startDate" value={x.startDate} onChange={(e) => handleChange(e, i)} type="date" />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>End Date</Form.Label>
+                        <Form.Control name="endDate" value={x.endDate} onChange={(e) => handleChange(e, i)} type="date" />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Job Role</Form.Label>
+                    <Form.Control name="jobRole" value={x.jobRole} onChange={(e) => handleChange(e, i)} type="text" placeholder="Frontend developer using Angular." />
+                  </Form.Group>
+
+                  {workExpList.length - 1 === i && (
+                    <Button style={{ float: "right" }} variant="success" type="button" class="btn btn-primary" onClick={handleAdd}>
+                      Add
+                    </Button>
+                  )}
+                  {workExpList.length !== 1 && (
+                    <Button type="button" class="btn btn-primary" variant="danger" onClick={(e) => handleRemove(e, i)}>
+                      Remove
+                    </Button>
+                  )}
+                </Container>
+              </div>
+            );
+          })}
+        </Card.Body>
+      </Card>
     </section>
   );
 }

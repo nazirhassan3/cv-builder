@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 function PersonalDetails(props) {
   const [personalDetails, setPersonalDetails] = useState({
     fullName: "",
@@ -23,78 +23,50 @@ function PersonalDetails(props) {
 
   return (
     <section class="personal-details">
-      <div class="personal-details__header">
-        <h1>Personal Details</h1>
-      </div>
+      <Card style={{ margin: "20px 0" }}>
+        <Card.Header>💻 Personal Details</Card.Header>
+        <Card.Body>
+          <Container>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Full Name</Form.Label>
+                  <Form.Control name="fullName" value={personalDetails?.fullName} onChange={(e) => handleChange(e)} type="text" placeholder="John Mic" />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Job Title</Form.Label>
+                  <Form.Control name="jobTitle" value={personalDetails?.jobTitle} onChange={(e) => handleChange(e)} type="text" placeholder="Software Developer" />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control name="phone" value={personalDetails?.phone} onChange={(e) => handleChange(e)} type="tel" placeholder="+278958959" />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control name="email" value={personalDetails?.email} onChange={(e) => handleChange(e)} type="email" placeholder="john@mail.com" />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Address</Form.Label>
+              <Form.Control name="address" value={personalDetails?.address} onChange={(e) => handleChange(e)} type="text" placeholder="No.3, 1st Cross Street, Kotte" />
+            </Form.Group>
 
-      <div class="personal-detail">
-        <label for="fullName" class="form-label">
-          Full Name
-        </label>
-        <input
-          class="form-control"
-          name="fullName"
-          value={personalDetails?.fullName}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div class="personal-detail">
-        <label for="jobTitle" class="form-label">
-          Job Title
-        </label>
-        <input
-          class="form-control"
-          name="jobTitle"
-          value={personalDetails?.jobTitle}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div class="personal-detail">
-        <label for="phone" class="form-label">
-          Phone
-        </label>
-        <input
-          type="tel"
-          class="form-control"
-          name="phone"
-          value={personalDetails?.phone}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div class="personal-detail">
-        <label for="email" class="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          class="form-control"
-          name="email"
-          value={personalDetails?.email}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div class="personal-detail">
-        <label for="address" class="form-label">
-          Address
-        </label>
-        <input
-          class="form-control"
-          name="address"
-          value={personalDetails?.address}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
-      <div class="personal-detail">
-        <label for="summary" class="form-label">
-          Summary
-        </label>
-        <textarea
-          rows="3"
-          name="summary"
-          value={personalDetails?.summary}
-          onChange={(e) => handleChange(e)}
-        ></textarea>
-      </div>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Summary</Form.Label>
+              <Form.Control name="summary" value={personalDetails?.summary} onChange={(e) => handleChange(e)} as="textarea" rows={3} />
+            </Form.Group>
+          </Container>
+        </Card.Body>
+      </Card>
     </section>
   );
 }

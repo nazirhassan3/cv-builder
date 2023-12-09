@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ViewAllResume.css";
+import Table from "react-bootstrap/Table";
+import { Button } from "react-bootstrap";
 
 function ViewAllResume() {
   const navigate = useNavigate();
@@ -9,11 +11,12 @@ function ViewAllResume() {
 
   function showResume(resume_id) {
     navigate(`/view/${resume_id}`);
+    // showResume(resume?.resumeId)
   }
 
   async function getAllResumes() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/resumes`);
+      const response = await axios.get(`https://cv-builder-api-h8zv.onrender.com/api/resumes`);
 
       if (response?.status === 200) {
         console.info(response);
@@ -34,23 +37,39 @@ function ViewAllResume() {
   return (
     <>
       <div>
-        <h1>View All</h1>
-        <div>
-          <table>
-            {allResumes?.length > 0
-              ? allResumes?.map((resume) => {
-                  return (
-                    <tr>
-                      <td>{resume?.resumeId}</td>
-                      <td>{resume?.name} </td>
-                      <td>
-                        <button onClick={() => showResume(resume?.resumeId)}>View Resume</button>
-                      </td>
-                    </tr>
-                  );
-                })
-              : null}
-          </table>
+        <h1>View All Resume</h1>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <Table style={{ width: "60%" }} striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Resume Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allResumes?.length > 0
+                ? allResumes?.map((resume) => {
+                    return (
+                      <tr>
+                        <td>{resume?.resumeId}</td>
+                        <td>{resume?.name} </td>
+                        <td>
+                          <Button
+                            variant="secondary"
+                            onClick={() => {
+                              window.open(`/view/${resume?.resumeId}`, "_blank");
+                            }}
+                          >
+                            View Resume 👁
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                : null}
+            </tbody>
+          </Table>
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function Skills(props) {
   const [skillList, setSkillList] = useState([""]);
@@ -26,44 +27,32 @@ function Skills(props) {
 
   return (
     <section class="skills">
-      <div class="skills__header">
-        <h1>Skills</h1>
-      </div>
-      {skillList.map((x, i) => {
-        return (
-          <div key={i}>
-            <div class="skill">
-              <label for="skill" class="form-label">
-                Skill
-              </label>
-              <input
-                class="form-control"
-                id="skill"
-                value={x}
-                name="skill"
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            {skillList.length - 1 === i && (
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Add"
-                onClick={handleAdd}
-              />
-            )}
-            {skillList.length !== 1 && (
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Remove"
-                onClick={(e) => handleRemove(e, i)}
-              />
-            )}
-          </div>
-        );
-      })}
-      <pre>{JSON.stringify(skillList)}</pre>
+      <Card style={{ margin: "20px 0" }}>
+        <Card.Header>🤹‍♂️ Skills</Card.Header>
+        <Card.Body>
+          {skillList.map((x, i) => {
+            return (
+              <div key={i}>
+                <Container style={{ margin: "0 0 10px 0" }}>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Control name="skill" value={x} onChange={(e) => handleChange(e, i)} type="text" placeholder="Angular" />
+                  </Form.Group>
+                  {skillList.length - 1 === i && (
+                    <Button type="button" style={{ float: "right" }} variant="success" onClick={handleAdd}>
+                      Add
+                    </Button>
+                  )}
+                  {skillList.length !== 1 && (
+                    <Button type="button" variant="danger" onClick={(e) => handleRemove(e, i)}>
+                      Remove
+                    </Button>
+                  )}
+                </Container>
+              </div>
+            );
+          })}
+        </Card.Body>
+      </Card>
     </section>
   );
 }

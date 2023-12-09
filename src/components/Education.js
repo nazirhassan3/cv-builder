@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function Education(props) {
-  const [educationList, setEducationList] = useState([
-    { education: "", school: "", startDate: "", endDate: "" },
-  ]);
+  const [educationList, setEducationList] = useState([{ education: "", school: "", startDate: "", endDate: "" }]);
 
   const handleAdd = () => {
-    setEducationList([
-      ...educationList,
-      { education: "", school: "", startDate: "", endDate: "" },
-    ]);
+    setEducationList([...educationList, { education: "", school: "", startDate: "", endDate: "" }]);
   };
 
   const handleChange = (e, index) => {
@@ -31,78 +27,57 @@ function Education(props) {
 
   return (
     <section class="education">
-      <div class="education__header">
-        <h1>Education</h1>
-      </div>
-      {educationList.map((x, i) => {
-        return (
-          <div key={i}>
-            <div class="edu">
-              <label for="education" class="form-label">
-                Education
-              </label>
-              <input
-                class="form-control"
-                name="education"
-                value={x.education}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="edu">
-              <label for="school" class="form-label">
-                School/University
-              </label>
-              <input
-                class="form-control"
-                name="school"
-                value={x.school}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="edu">
-              <label for="startDate" class="form-label">
-                Start date
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                name="startDate"
-                value={x.startDate}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            <div class="edu">
-              <label for="endDate" class="form-label">
-                End Date/Expected Graduation
-              </label>
-              <input
-                type="date"
-                class="form-control"
-                name="endDate"
-                value={x.endDate}
-                onChange={(e) => handleChange(e, i)}
-              />
-            </div>
-            {educationList.length - 1 === i && (
-              <input
-                type="button"
-                value="Add"
-                class="btn btn-primary"
-                onClick={handleAdd}
-              />
-            )}
-            {educationList.length !== 1 && (
-              <input
-                type="button"
-                class="btn btn-primary"
-                value="Remove"
-                onClick={(e) => handleRemove(e, i)}
-              />
-            )}
-          </div>
-        );
-      })}
-      <pre>{JSON.stringify(educationList)}</pre>
+      <Card style={{ margin: "20px 0" }}>
+        <Card.Header>👨‍🎓 Education</Card.Header>
+        <Card.Body>
+          {educationList.map((x, i) => {
+            return (
+              <div key={i}>
+                <Container>
+                  <Row>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Education</Form.Label>
+                        <Form.Control name="education" value={x.education} onChange={(e) => handleChange(e, i)} type="text" placeholder="BSc" />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>School/University</Form.Label>
+                        <Form.Control name="school" value={x.school} onChange={(e) => handleChange(e, i)} type="text" placeholder="University of XYZ" />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Start date</Form.Label>
+                        <Form.Control name="startDate" value={x.startDate} onChange={(e) => handleChange(e, i)} type="date" />
+                      </Form.Group>
+                    </Col>
+                    <Col>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>End Date/Expected Graduation</Form.Label>
+                        <Form.Control name="endDate" value={x.endDate} onChange={(e) => handleChange(e, i)} type="date" />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  {educationList.length - 1 === i && (
+                    <Button style={{ float: "right" }} variant="success" onClick={handleAdd}>
+                      Add
+                    </Button>
+                  )}
+                  {educationList.length !== 1 && (
+                    <Button variant="danger" onClick={(e) => handleRemove(e, i)}>
+                      Remove
+                    </Button>
+                  )}
+                </Container>
+              </div>
+            );
+          })}
+        </Card.Body>
+      </Card>
     </section>
   );
 }
