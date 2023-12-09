@@ -16,6 +16,7 @@ function ViewAllResume() {
 
   async function getAllResumes() {
     try {
+      // get call to get all resume data
       const response = await axios.get(`https://cv-builder-api-h8zv.onrender.com/api/resumes`);
 
       if (response?.status === 200) {
@@ -57,6 +58,7 @@ function ViewAllResume() {
                         <td>
                           <Button
                             variant="secondary"
+                            // open resume in new tab
                             onClick={() => {
                               window.open(`/view/${resume?.resumeId}`, "_blank");
                             }}

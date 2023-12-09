@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ViewResume.css";
 
+// view individual resumes
 function ViewResume(props) {
   let { id } = useParams();
 
@@ -10,6 +11,7 @@ function ViewResume(props) {
 
   async function getResumeById(id) {
     try {
+      // get request to get resume by id
       const response = await axios.get(`https://cv-builder-api-h8zv.onrender.com/api/resumes/${id}`);
 
       if (response?.status === 200) {
@@ -24,6 +26,7 @@ function ViewResume(props) {
     }
   }
 
+  // call getResumeById(id); after rendering
   useEffect(() => {
     // console.log(id);
 
@@ -32,6 +35,7 @@ function ViewResume(props) {
     }
   }, []);
 
+  // individual sections to matched with section order
   const sections = {
     education: (
       <div style={{ textAlign: "start" }}>
@@ -127,6 +131,7 @@ function ViewResume(props) {
               </div>
             </div>
             <div className="content">
+              {/* logic to render on section order */}
               {resumeDetails?.sectionOrder?.length > 0
                 ? resumeDetails?.sectionOrder?.map((section, index) => {
                     return <div key={index}>{sections[section]}</div>;

@@ -37,6 +37,7 @@ function Resume() {
     },
   ]);
 
+  // maintain order change of components
   const getChangedPos = (currentPos, newPos, e) => {
     // console.log(currentPos, newPos, e);
 
@@ -50,6 +51,7 @@ function Resume() {
     setPositions(newPositions);
   };
 
+  // getting final positional names of the elements to maintain order in final resume
   function getFinalPositions() {
     let finalPos = [];
     positions?.map((item) => finalPos.push(item?.name));
@@ -83,6 +85,8 @@ function Resume() {
     //   sectionOrder: getFinalPositions(),
     // };
     // const detail = { ...personalDetails };
+
+    // creating request object
     const requestObject = {
       name: personalDetails.fullName,
       jobTitle: personalDetails.jobTitle,
@@ -96,15 +100,9 @@ function Resume() {
       sectionOrder: getFinalPositions(),
     };
 
-    const headers = {
-      "Content-Type": "application/json",
-      "User-Agent": "PostmanRuntime/7.35.0",
-    };
-
     try {
-      const response = await axios.post(`https://cv-builder-api-h8zv.onrender.com/api/resumes`, requestObject, {
-        headers: headers,
-      });
+      // post req to save resume data
+      const response = await axios.post(`https://cv-builder-api-h8zv.onrender.com/api/resumes`, requestObject);
       console.info(response);
       if (response?.status === 200) {
         alert("Resume Successfully Saved!");

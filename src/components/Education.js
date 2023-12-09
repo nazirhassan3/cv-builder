@@ -1,13 +1,16 @@
+// Education Component
 import { useEffect, useState } from "react";
 import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function Education(props) {
   const [educationList, setEducationList] = useState([{ education: "", school: "", startDate: "", endDate: "" }]);
 
+  // adding to education array
   const handleAdd = () => {
     setEducationList([...educationList, { education: "", school: "", startDate: "", endDate: "" }]);
   };
 
+  // Form field handle change
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...educationList];
@@ -15,12 +18,14 @@ function Education(props) {
     setEducationList(list);
   };
 
+  // Removing education element from array
   const handleRemove = (e, index) => {
     const list = [...educationList];
     list.splice(index, 1);
     setEducationList(list);
   };
 
+  // Update on educationList state change
   useEffect(() => {
     props?.fetchEducation(educationList);
   }, [educationList]);
@@ -62,11 +67,13 @@ function Education(props) {
                       </Form.Group>
                     </Col>
                   </Row>
+                  {/* logic to ensure Add button is at the last element */}
                   {educationList.length - 1 === i && (
                     <Button style={{ float: "right" }} variant="success" onClick={handleAdd}>
                       Add
                     </Button>
                   )}
+                  {/* logic to ensure not remove all education element */}
                   {educationList.length !== 1 && (
                     <Button variant="danger" onClick={(e) => handleRemove(e, i)}>
                       Remove

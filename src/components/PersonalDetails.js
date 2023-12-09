@@ -1,3 +1,4 @@
+//Personal Detail Component
 import { useEffect, useState } from "react";
 import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 function PersonalDetails(props) {
@@ -10,6 +11,7 @@ function PersonalDetails(props) {
     summary: "",
   });
 
+  // Form field handle change
   const handleChange = (e) => {
     const detail = { ...personalDetails };
     detail[e.target.name] = e?.target?.value;
@@ -17,6 +19,7 @@ function PersonalDetails(props) {
     setPersonalDetails(detail);
   };
 
+  // Update on personalDetails state change
   useEffect(() => {
     props?.fetchPersonalDetails(personalDetails);
   }, [personalDetails]);

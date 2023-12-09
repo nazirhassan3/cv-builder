@@ -1,13 +1,16 @@
+// Work Experience Component
 import { useEffect, useState } from "react";
 import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 function WorkExperience(props) {
   const [workExpList, setWorkExpList] = useState([{ jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" }]);
 
+  // adding to Work Exp array
   const handleAdd = () => {
     setWorkExpList([...workExpList, { jobTitle: "", company: "", startDate: "", endDate: "", jobRole: "" }]);
   };
 
+  // Form field handle change
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...workExpList];
@@ -15,12 +18,14 @@ function WorkExperience(props) {
     setWorkExpList(list);
   };
 
+  // Removing Work Exp element from array
   const handleRemove = (e, index) => {
     const list = [...workExpList];
     list.splice(index, 1);
     setWorkExpList(list);
   };
 
+  // Update on workExpList state change
   useEffect(() => {
     props?.fetchWorkExperience(workExpList);
   }, [workExpList]);
@@ -68,12 +73,13 @@ function WorkExperience(props) {
                     <Form.Label>Job Role</Form.Label>
                     <Form.Control name="jobRole" value={x.jobRole} onChange={(e) => handleChange(e, i)} type="text" placeholder="Frontend developer using Angular." />
                   </Form.Group>
-
+                  {/* logic to ensure Add button is at the last element */}
                   {workExpList.length - 1 === i && (
                     <Button style={{ float: "right" }} variant="success" type="button" class="btn btn-primary" onClick={handleAdd}>
                       Add
                     </Button>
                   )}
+                  {/* logic to ensure not remove all Work Exp */}
                   {workExpList.length !== 1 && (
                     <Button type="button" class="btn btn-primary" variant="danger" onClick={(e) => handleRemove(e, i)}>
                       Remove
